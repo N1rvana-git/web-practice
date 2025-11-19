@@ -7,6 +7,18 @@
 		<meta name="theme-color" content="#0f1116" />
 		<title>Rikas · AI 客服平台（静态示例）</title>
 		<meta name="description" content="Rikas 是一款现代化 AI 客服平台示例页面，本页为学习用的纯静态实现，未使用任何第三方受版权保护的文案或素材。" />
+		<link rel="canonical" href="https://rikas.ai/demo/web-practice" />
+		<meta name="keywords" content="AI 客服, 智能客服平台, 客服机器人, 客服自动化, Rikas" />
+		<meta name="robots" content="index,follow" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://rikas.ai/demo/web-practice" />
+		<meta property="og:title" content="Rikas · AI 客服平台" />
+		<meta property="og:description" content="统一渠道、知识和自动化的 AI 客服平台示例，展示产品介绍、功能特性与定价方案。" />
+		<meta property="og:image" content="https://rikas.ai/assets/social-card.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Rikas · AI 客服平台" />
+		<meta name="twitter:description" content="统一渠道、知识和自动化的 AI 客服平台示例，展示产品介绍、功能特性与定价方案。" />
+		<meta name="twitter:image" content="https://rikas.ai/assets/social-card.png" />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +26,37 @@
 
 		<link rel="stylesheet" href="./styles.css" />
 		<link rel="stylesheet" href="./modal.css" />
+
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "SoftwareApplication",
+			"name": "Rikas AI 客服平台",
+			"description": "统一多渠道接入、知识管理与自动化流转的 AI 客服平台示例。",
+			"applicationCategory": "BusinessApplication",
+			"operatingSystem": "Web",
+			"url": "https://rikas.ai/demo/web-practice",
+			"offers": {
+				"@type": "Offer",
+				"priceCurrency": "CNY",
+				"price": "199",
+				"availability": "https://schema.org/InStock"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Rikas"
+			}
+		}
+		</script>
 	</head>
 	<body class="theme-dark">
 		<header class="site-header">
 			<div class="container nav">
 				<a class="brand" href="#">Rikas</a>
 				<nav class="nav__links" aria-label="主导航">
+					<a href="#product">产品介绍</a>
+					<a href="#features">功能特性</a>
+					<a href="#pricing">定价方案</a>
 					<a href="https://rikas.ai/contact" target="_blank" rel="noopener">Contact sales</a>
 					<a href="https://app.rikas.ai/sign-in" target="_blank" rel="noopener">Sign in</a>
 					<a href="./rikas.html#demo" target="_blank" rel="noopener">View demo</a>
@@ -34,6 +71,109 @@
 				<div class="container hero__inner">
 					<h1 class="hero__title">Rikas：让客户支持更智能</h1>
 					<p class="hero__subtitle">一站式 AI 客服解决方案，帮助团队提升响应速度与服务质量。</p>
+				</div>
+			</section>
+
+			<section class="section product" id="product">
+				<div class="container product__inner">
+					<div class="product__content">
+						<p class="section__eyebrow">产品介绍</p>
+						<h2 class="section__title">统一渠道、知识与自动化的 AI 客服平台</h2>
+						<p class="section__desc">Rikas 将语音、社交、邮件和自建渠道整合在一个中心，借助 AI 将知识库、协作与自动化工作流连接起来，确保每一次回复都准确而高效。</p>
+						<ul class="product__list">
+							<li>统一入口：一次部署即可覆盖主流对话渠道与 App 内客服。</li>
+							<li>知识驱动：基于私有知识库与最新意图识别提供答案。</li>
+							<li>自动协作：跨团队任务、审批与工单在后台自动流转。</li>
+						</ul>
+					</div>
+					<div class="product__stats">
+						<article class="stat">
+							<h3 class="stat__value">-45%</h3>
+							<p class="stat__label">平均处理时长（AHT）</p>
+						</article>
+						<article class="stat">
+							<h3 class="stat__value">+60%</h3>
+							<p class="stat__label">首次响应解决率（FCR）</p>
+						</article>
+						<article class="stat">
+							<h3 class="stat__value">99.9%</h3>
+							<p class="stat__label">平台可用性 SLAs</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<section class="section features-section" id="features">
+				<div class="container">
+					<header class="section__header">
+						<p class="section__eyebrow">功能特性</p>
+						<h2 class="section__title">为高效客服打造的深度能力</h2>
+						<p class="section__desc">从自动化路由到智能知识检索，Rikas 提供端到端的能力帮助客服团队缩短响应时间并放大产出。</p>
+					</header>
+					<div class="feature-grid">
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">⚙️</div>
+							<h3 class="feature-card__title">自动化路由</h3>
+							<p class="feature-card__desc">根据意图、优先级与客户等级分派请求，减少人工排队。</p>
+						</article>
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">📚</div>
+							<h3 class="feature-card__title">智能知识检索</h3>
+							<p class="feature-card__desc">实时搜索私有知识库，自动生成贴近品牌语气的答复。</p>
+						</article>
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">📊</div>
+							<h3 class="feature-card__title">转化分析</h3>
+							<p class="feature-card__desc">对渠道与团队表现进行可视化分析，识别优化机会。</p>
+						</article>
+						<article class="feature-card">
+							<div class="feature-card__icon" aria-hidden="true">🔗</div>
+							<h3 class="feature-card__title">生态集成</h3>
+							<p class="feature-card__desc">无缝连接 CRM、工单、企微与第三方自动化工具。</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<section class="section pricing" id="pricing">
+				<div class="container">
+					<header class="section__header">
+						<p class="section__eyebrow">定价方案</p>
+						<h2 class="section__title">按阶段成长选择合适的套餐</h2>
+						<p class="section__desc">灵活的席位计费与 API 调用配额，支持按需扩展与企业自定义 SLA。</p>
+					</header>
+					<div class="pricing-grid">
+						<article class="plan">
+							<p class="plan__tag">Starter</p>
+							<h3 class="plan__price">¥199<span>/坐席/月</span></h3>
+							<ul class="plan__list">
+								<li>多渠道消息收发</li>
+								<li>基础机器人脚本</li>
+								<li>7×12 邮件支持</li>
+							</ul>
+							<a class="btn btn--glass" href="https://rikas.ai/pricing" target="_blank" rel="noopener">开始试用</a>
+						</article>
+						<article class="plan plan--highlight">
+							<p class="plan__tag">Growth</p>
+							<h3 class="plan__price">¥399<span>/坐席/月</span></h3>
+							<ul class="plan__list">
+								<li>AI Copilot + 知识检索</li>
+								<li>自动化工作流 50 条</li>
+								<li>7×24 工单支持</li>
+							</ul>
+							<a class="btn btn--primary" href="https://rikas.ai/start-trial" target="_blank" rel="noopener">申请体验</a>
+						</article>
+						<article class="plan">
+							<p class="plan__tag">Enterprise</p>
+							<h3 class="plan__price">定制</h3>
+							<ul class="plan__list">
+								<li>专属部署与 VPC</li>
+								<li>无限制自动化配额</li>
+								<li>技术顾问 + SLA 保障</li>
+							</ul>
+							<a class="btn btn--glass" href="https://rikas.ai/contact" target="_blank" rel="noopener">联系销售</a>
+						</article>
+					</div>
 				</div>
 			</section>
 
