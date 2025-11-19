@@ -1,0 +1,146 @@
+{
+  "name": "Rikas 试用申请通知",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "trial-application",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "name": "Webhook 接收试用申请",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "trial-application",
+      "id": "webhook-node-1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 处理表单数据并格式化为飞书卡片\nconst formData = $input.item.json.body;\n\n// 团队规模映射\nconst teamSizeMap = {\n  '1-10': '1-10人',\n  '11-50': '11-50人',\n  '51-200': '51-200人',\n  '201-500': '201-500人',\n  '500+': '500人以上'\n};\n\n// 构建飞书卡片消息\nconst feishuCard = {\n  msg_type: 'interactive',\n  card: {\n    config: {\n      wide_screen_mode: true\n    },\n    header: {\n      title: {\n        tag: 'plain_text',\n        content: '🎉 新的试用申请'\n      },\n      template: 'blue'\n    },\n    elements: [\n      {\n        tag: 'div',\n        text: {\n          tag: 'lark_md',\n          content: `**申请时间:** ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`\n        }\n      },\n      {\n        tag: 'hr'\n      },\n      {\n        tag: 'div',\n        fields: [\n          {\n            is_short: true,\n            text: {\n              tag: 'lark_md',\n              content: `**姓名:**\\n${formData.firstName || ''} ${formData.lastName || ''}`\n            }\n          },\n          {\n            is_short: true,\n            text: {\n              tag: 'lark_md',\n              content: `**职位:**\\n${formData.jobTitle || '未填写'}`\n            }\n          },\n          {\n            is_short: true,\n            text: {\n              tag: 'lark_md',\n              content: `**邮箱:**\\n${formData.workEmail || ''}`\n            }\n          },\n          {\n            is_short: true,\n            text: {\n              tag: 'lark_md',\n              content: `**电话:**\\n${formData.phone || '未填写'}`\n            }\n          },\n          {\n            is_short: true,\n            text: {\n              tag: 'lark_md',\n              content: `**公司:**\\n${formData.company || ''}`\n            }\n          },\n          {\n            is_short: true,\n            text: {\n              tag: 'lark_md',\n              content: `**团队规模:**\\n${teamSizeMap[formData.teamSize] || formData.teamSize}`\n            }\n          }\n        ]\n      },\n      {\n        tag: 'hr'\n      },\n      {\n        tag: 'div',\n        text: {\n          tag: 'lark_md',\n          content: `**订阅营销信息:** ${formData.subscribe ? '✅ 是' : '❌ 否'}`\n        }\n      },\n      {\n        tag: 'hr'\n      },\n      {\n        tag: 'note',\n        elements: [\n          {\n            tag: 'plain_text',\n            content: '请尽快联系客户，提供试用账号和产品演示'\n          }\n        ]\n      },\n      {\n        tag: 'action',\n        actions: [\n          {\n            tag: 'button',\n            text: {\n              tag: 'plain_text',\n              content: '发送试用账号'\n            },\n            type: 'primary',\n            url: `mailto:${formData.workEmail}?subject=欢迎试用 Rikas AI&body=您好 ${formData.firstName}，`\n          },\n          {\n            tag: 'button',\n            text: {\n              tag: 'plain_text',\n              content: '查看详情'\n            },\n            type: 'default',\n            url: 'https://rikas.ai/admin/trials'\n          }\n        ]\n      }\n    ]\n  }\n};\n\nreturn {\n  json: {\n    feishuCard: feishuCard,\n    originalData: formData,\n    timestamp: new Date().toISOString()\n  }\n};"
+      },
+      "name": "格式化为飞书卡片",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        300
+      ],
+      "id": "code-node-1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.FEISHU_WEBHOOK_URL }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.feishuCard) }}",
+        "options": {}
+      },
+      "name": "发送到飞书",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        650,
+        300
+      ],
+      "id": "http-node-1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({\n  success: true,\n  message: '申请已提交，我们会尽快与您联系',\n  timestamp: $json.timestamp\n}) }}"
+      },
+      "name": "返回成功响应",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        850,
+        300
+      ],
+      "id": "respond-node-1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseCode": 500,
+        "responseBody": "={{ JSON.stringify({\n  success: false,\n  message: '提交失败，请稍后重试',\n  error: $json.error\n}) }}"
+      },
+      "name": "返回错误响应",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        850,
+        450
+      ],
+      "id": "respond-error-node-1"
+    }
+  ],
+  "connections": {
+    "Webhook 接收试用申请": {
+      "main": [
+        [
+          {
+            "node": "格式化为飞书卡片",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "格式化为飞书卡片": {
+      "main": [
+        [
+          {
+            "node": "发送到飞书",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "发送到飞书": {
+      "main": [
+        [
+          {
+            "node": "返回成功响应",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "返回错误响应",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-01-13T00:00:00.000Z",
+  "versionId": "1"
+}

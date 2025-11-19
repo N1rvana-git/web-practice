@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#0f1116" />
+		<title>Rikas · AI 客服平台（静态示例）</title>
+		<meta name="description" content="Rikas 是一款现代化 AI 客服平台示例页面，本页为学习用的纯静态实现，未使用任何第三方受版权保护的文案或素材。" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+		<link rel="stylesheet" href="./styles.css" />
+		<link rel="stylesheet" href="./modal.css" />
+	</head>
+	<body class="theme-dark">
+		<header class="site-header">
+			<div class="container nav">
+				<a class="brand" href="#">Rikas</a>
+				<nav class="nav__links" aria-label="主导航">
+					<a href="https://rikas.ai/contact" target="_blank" rel="noopener">Contact sales</a>
+					<a href="https://app.rikas.ai/sign-in" target="_blank" rel="noopener">Sign in</a>
+					<a href="./rikas.html#demo" target="_blank" rel="noopener">View demo</a>
+					<a class="btn btn--primary" href="https://rikas.ai/start-trial" target="_blank" rel="noopener">Start free trial</a>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+			<!-- Hero -->
+			<section class="hero">
+				<div class="container hero__inner">
+					<h1 class="hero__title">Rikas：让客户支持更智能</h1>
+					<p class="hero__subtitle">一站式 AI 客服解决方案，帮助团队提升响应速度与服务质量。</p>
+				</div>
+			</section>
+
+					<!-- 双卡片展示区（示例，不含第三方商标） -->
+			<section class="showcase">
+				<div class="container grid grid--2">
+					<article class="card card--left">
+						<header class="card__header">
+							<h2 class="card__title">Rikas Copilot</h2>
+							<p class="card__eyebrow">在现有工单系统中无缝协作</p>
+						</header>
+						<p class="card__desc">AI 助手与你的帮助台协同工作，覆盖复杂场景与多渠道咨询。</p>
+						<a class="btn btn--glass" href="https://rikas.ai/products/copilot" target="_blank" rel="noopener">了解 Copilot</a>
+						<div class="card__media" aria-hidden="true">
+							<div class="mock chat">
+								<div class="bubble bubble--user">我的银行卡丢了，如何补办？</div>
+								<div class="bubble bubble--ai">我已为你挂失卡片，并指导你完成补办流程。</div>
+							</div>
+						</div>
+					</article>
+
+					<article class="card card--right">
+						<header class="card__header">
+							<h2 class="card__title">Rikas Suite</h2>
+							<p class="card__eyebrow">Copilot + Helpdesk</p>
+						</header>
+						<p class="card__desc">统一的客服工作台，加速响应、更高效协作、集中化数据洞察。</p>
+						<a class="btn btn--glass" href="https://rikas.ai/products/suite" target="_blank" rel="noopener">了解 Suite</a>
+					</article>
+				</div>
+						<div class="container" style="margin-top:40px; text-align:center;">
+							<a class="btn btn--primary" data-modal-target="#modal-example" href="https://demo.rikas.ai/modal" target="_blank" rel="noopener">打开示例模态框</a>
+						</div>
+			</section>
+		</main>
+
+				<!-- 模态框实例 -->
+				<div class="modal" id="modal-example" data-state="closed" hidden>
+					<div class="modal__overlay" data-dismiss="modal" aria-hidden="true"></div>
+					<div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-example-title" aria-describedby="modal-example-desc" tabindex="-1">
+						<header class="modal__header">
+							<h2 class="modal__title" id="modal-example-title">示例模态框</h2>
+							<button class="modal__close" type="button" aria-label="关闭" data-dismiss="modal">✕</button>
+						</header>
+						<div class="modal__body" id="modal-example-desc">
+							<p>这里是模态框内容。支持键盘 <kbd>Tab</kbd> 焦点循环，<kbd>Esc</kbd> 关闭，点击遮罩关闭。</p>
+										<label class="field" style="margin-top:12px;">
+											<span class="field__label">邮箱</span>
+											<input class="field__input" type="email" placeholder="you@example.com" />
+							</label>
+						</div>
+						<footer class="modal__footer">
+							<a class="btn btn--secondary" data-dismiss="modal" href="https://rikas.ai/pricing" target="_blank" rel="noopener">取消</a>
+							<a class="btn btn--primary" data-dismiss="modal" href="https://app.rikas.ai/confirm" target="_blank" rel="noopener">确认</a>
+						</footer>
+					</div>
+				</div>
+
+		<footer class="site-footer" id="contact">
+			<div class="container footer__inner">
+				<span class="brand">Rikas</span>
+				<span class="muted">© <span id="year"></span> Rikas. Demo only.</span>
+			</div>
+		</footer>
+
+			<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+			<script src="./modal.js" defer></script>
+	</body>
+	</html>

@@ -1,0 +1,58 @@
+:root {
+  --modal-overlay-bg: rgba(0, 0, 0, 0.52);
+  --modal-bg: #111418;
+  --modal-fg: #e6e8ec;
+  --modal-muted: #a0a7b4;
+  --modal-radius: 16px;
+  --modal-shadow: 0 20px 60px rgba(0,0,0,.35);
+  --modal-max-w: 640px;
+  --modal-padding: 20px;
+  --modal-gap: 16px;
+
+  --modal-duration: 220ms;
+  --modal-ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+.modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; }
+.modal[hidden] { display: none; }
+
+.modal__overlay { position: absolute; inset: 0; background: var(--modal-overlay-bg); opacity: 0; transition: opacity var(--modal-duration) var(--modal-ease); }
+
+.modal__dialog {
+  position: relative; z-index: 1; color: var(--modal-fg); background: var(--modal-bg);
+  border-radius: var(--modal-radius); box-shadow: var(--modal-shadow);
+  width: min(92vw, var(--modal-max-w)); max-height: 86vh; display: flex; flex-direction: column;
+  gap: var(--modal-gap); padding: var(--modal-padding); transform: scale(.98); opacity: 0;
+  transition: opacity var(--modal-duration) var(--modal-ease), transform var(--modal-duration) var(--modal-ease), translate var(--modal-duration) var(--modal-ease);
+}
+
+.modal__header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.modal__title { margin: 0; font-size: clamp(18px, 2.4vw, 22px); letter-spacing: -0.01em; }
+.modal__body { color: var(--modal-muted); overflow: auto; }
+.modal__footer { display: flex; justify-content: flex-end; gap: 10px; }
+
+.modal__close { border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: var(--modal-fg); height: 36px; width: 36px; border-radius: 10px; display: grid; place-items: center; cursor: pointer; }
+.modal__close:hover { background: rgba(255,255,255,.08); }
+
+.modal[data-state="open"] .modal__overlay { opacity: 1; }
+@media (min-width: 768px) { .modal[data-state="open"] .modal__dialog { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 767.98px) {
+  .modal { align-items: end; }
+  .modal__dialog { width: 100vw; border-radius: 16px 16px 0 0; max-height: 92vh; translate: 0 12px; }
+  .modal[data-state="open"] .modal__dialog { opacity: 1; translate: 0 0; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { .modal__overlay, .modal__dialog { transition: none; } }
+
+/* 仅在模态内部的按钮样式，避免影响全局按钮 */
+.modal .btn { height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); color: #e6e8ec; background: rgba(255,255,255,.06); cursor: pointer; }
+.modal .btn:hover { background: rgba(255,255,255,.1); }
+.modal .btn--primary { background: #6aa1ff; color: #0c0e12; border-color: transparent; }
+.modal .btn--secondary { background: rgba(255,255,255,.06); color: #e6e8ec; }
+
+/* 模态内表单元素 */
+.modal .field { display: grid; gap: 6px; }
+.modal .field__label { font-size: 13px; color: var(--modal-muted); }
+.modal .field__input { height: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); color: var(--modal-fg); padding: 0 12px; }
+.modal .field__input:focus { outline: 2px solid #4d8aff; outline-offset: 2px; }

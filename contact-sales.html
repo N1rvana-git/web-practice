@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0f0d0d" />
+  <title>联系销售 - Rikas</title>
+  <meta name="description" content="联系 Rikas 销售团队，获取专属演示和企业级解决方案。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./rikas.css" />
+  <style>
+    .contact-hero {
+      min-height: 40vh;
+      padding: 120px 0 60px;
+      text-align: center;
+    }
+    .contact-hero__title {
+      margin: 0 0 16px;
+      font-size: clamp(32px, 4.5vw, 52px);
+      letter-spacing: -0.02em;
+    }
+    .contact-hero__subtitle {
+      margin: 0 auto;
+      max-width: 640px;
+      color: rgba(205, 214, 232, 0.8);
+      font-size: clamp(16px, 1.6vw, 19px);
+      line-height: 1.65;
+    }
+    .contact-form-section {
+      padding: 60px 0 120px;
+    }
+    .contact-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+    .contact-info {
+      position: sticky;
+      top: 120px;
+    }
+    .contact-info__title {
+      margin: 0 0 24px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+    .contact-info__item {
+      margin-bottom: 32px;
+    }
+    .contact-info__label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(179, 186, 197, 0.7);
+    }
+    .contact-info__value {
+      font-size: 18px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-info__value a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .contact-info__value a:hover {
+      color: var(--primary-600);
+    }
+    .contact-form-card {
+      padding: 48px;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(165deg, rgba(20, 24, 42, 0.88), rgba(12, 14, 26, 0.68));
+      box-shadow: 0 40px 80px -60px rgba(18, 30, 88, 0.75);
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .form-label .required {
+      color: var(--primary);
+      margin-left: 4px;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(8, 12, 20, 0.55);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: rgba(221, 225, 234, 0.5);
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: 2px solid rgba(94, 140, 255, 0.6);
+      outline-offset: 2px;
+      border-color: rgba(94, 140, 255, 0.6);
+      box-shadow: 0 0 0 8px rgba(94, 140, 255, 0.12);
+      background: rgba(8, 12, 22, 0.75);
+    }
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .contact-form-card {
+        padding: 32px 24px;
+      }
+    }
+    .form-submit {
+      margin-top: 32px;
+    }
+    .btn-submit {
+      width: 100%;
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 999px;
+      border: none;
+      background: var(--primary);
+      color: #0b0b0f;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .btn-submit:hover {
+      background: var(--primary-600);
+      transform: translateY(-2px);
+    }
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+    .form-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: rgba(179, 186, 197, 0.7);
+      line-height: 1.6;
+    }
+    .form-note a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .form-note a:hover {
+      text-decoration: underline;
+    }
+    .success-message {
+      display: none;
+      padding: 20px 24px;
+      border-radius: 16px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: rgba(16, 255, 185, 0.9);
+      margin-bottom: 24px;
+      animation: slideIn 0.3s ease-out;
+    }
+    .success-message.show {
+      display: block;
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand brand--logo" href="./rikas.html">
+        <img src="./Rikas.png" alt="Rikas" class="brand__img" />
+      </a>
+      <nav class="nav__links" aria-label="主导航">
+        <a href="./contact-sales.html">Contact sales</a>
+        <a href="https://demo.rikas.ai/?utm=landing" target="_blank" rel="noopener">View demo</a>
+        <a href="./sign-in.html">Sign in</a>
+        <a href="./faq.html">FAQ</a>
+        <a class="btn btn--primary" href="./apply-trial.html">申请试用</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero">
+      <div class="container">
+        <h1 class="contact-hero__title">联系销售团队</h1>
+        <p class="contact-hero__subtitle">我们的销售专家将为您提供专属演示和定制化解决方案，帮助您快速了解 Rikas 如何助力业务增长。</p>
+      </div>
+    </section>
+
+    <section class="contact-form-section">
+      <div class="contact-container">
+        <div class="contact-info">
+          <h2 class="contact-info__title">联系方式</h2>
+          
+          <div class="contact-info__item">
+            <span class="contact-info__label">销售咨询</span>
+            <div class="contact-info__value">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 6.66667L10 11.6667L17.5 6.66667M3.33333 15H16.6667C17.5833 15 18.3333 14.25 18.3333 13.3333V6.66667C18.3333 5.75 17.5833 5 16.6667 5H3.33333C2.41667 5 1.66667 5.75 1.66667 6.66667V13.3333C1.66667 14.25 2.41667 15 3.33333 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <a href="mailto:sales@rikas.ai">sales@rikas.ai</a>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <span class="contact-info__label">企业支持</span>
+            <div class="contact-info__value">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 6.66667L10 11.6667L17.5 6.66667M3.33333 15H16.6667C17.5833 15 18.3333 14.25 18.3333 13.3333V6.66667C18.3333 5.75 17.5833 5 16.6667 5H3.33333C2.41667 5 1.66667 5.75 1.66667 6.66667V13.3333C1.66667 14.25 2.41667 15 3.33333 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <a href="mailto:hello@rikas.ai">hello@rikas.ai</a>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <span class="contact-info__label">响应时间</span>
+            <div class="contact-info__value">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 5V10L13.3333 11.6667M18.3333 10C18.3333 14.6024 14.6024 18.3333 10 18.3333C5.39763 18.3333 1.66667 14.6024 1.66667 10C1.66667 5.39763 5.39763 1.66667 10 1.66667C14.6024 1.66667 18.3333 5.39763 18.3333 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              24 小时内回复
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <span class="contact-info__label">服务时间</span>
+            <div class="contact-info__value">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.66667 1.66667V5M13.3333 1.66667V5M2.5 8.33333H17.5M4.16667 3.33333H15.8333C16.7538 3.33333 17.5 4.07953 17.5 5V16.6667C17.5 17.5871 16.7538 18.3333 15.8333 18.3333H4.16667C3.24619 18.3333 2.5 17.5871 2.5 16.6667V5C2.5 4.07953 3.24619 3.33333 4.16667 3.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              工作日 9:00 - 18:00 (UTC+8)
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <div class="success-message" id="successMessage">
+            ✓ 提交成功！我们的销售团队将在 24 小时内与您联系。
+          </div>
+
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="firstName">
+                  名字<span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="firstName" 
+                  name="firstName" 
+                  class="form-input" 
+                  placeholder="张"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="lastName">
+                  姓氏<span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="lastName" 
+                  name="lastName" 
+                  class="form-input" 
+                  placeholder="三"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">
+                企业邮箱<span class="required">*</span>
+              </label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="form-input" 
+                placeholder="zhangsan@company.com"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="company">
+                  公司名称<span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="company" 
+                  name="company" 
+                  class="form-input" 
+                  placeholder="您的公司"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="phone">
+                  联系电话
+                </label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  class="form-input" 
+                  placeholder="+86 138 0000 0000"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="teamSize">
+                  团队规模<span class="required">*</span>
+                </label>
+                <select id="teamSize" name="teamSize" class="form-select" required>
+                  <option value="">请选择</option>
+                  <option value="1-10">1-10 人</option>
+                  <option value="11-50">11-50 人</option>
+                  <option value="51-200">51-200 人</option>
+                  <option value="201-500">201-500 人</option>
+                  <option value="500+">500+ 人</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="industry">
+                  所属行业
+                </label>
+                <select id="industry" name="industry" class="form-select">
+                  <option value="">请选择</option>
+                  <option value="ecommerce">电商零售</option>
+                  <option value="education">在线教育</option>
+                  <option value="finance">金融服务</option>
+                  <option value="healthcare">医疗健康</option>
+                  <option value="saas">SaaS / 企业服务</option>
+                  <option value="other">其他</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">
+                您的需求<span class="required">*</span>
+              </label>
+              <textarea 
+                id="message" 
+                name="message" 
+                class="form-textarea" 
+                placeholder="请简要描述您的业务场景和需求..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-submit">
+              <button type="submit" class="btn-submit">提交咨询</button>
+              <p class="form-note">
+                提交即表示您同意我们的 <a href="#">隐私政策</a>。我们重视您的隐私，不会向第三方分享您的信息。
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="brand">Rikas</span>
+      <span class="muted">© <span id="year"></span> Rikas. Demo only.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 表单提交处理
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // 收集表单数据
+      const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        company: document.getElementById('company').value,
+        phone: document.getElementById('phone').value,
+        teamSize: document.getElementById('teamSize').value,
+        industry: document.getElementById('industry').value,
+        message: document.getElementById('message').value
+      };
+      
+      // 这里可以添加实际的表单提交逻辑（如发送到后端 API）
+      console.log('表单数据:', formData);
+      
+      // 显示成功消息
+      successMessage.classList.add('show');
+      
+      // 重置表单
+      contactForm.reset();
+      
+      // 滚动到成功消息
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      // 5秒后隐藏成功消息
+      setTimeout(function() {
+        successMessage.classList.remove('show');
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

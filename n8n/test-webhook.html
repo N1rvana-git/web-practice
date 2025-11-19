@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N8N Webhook 测试工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .result.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .result h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .result pre {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 16px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .info-box strong {
+            color: #1976D2;
+        }
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 N8N Webhook 测试工具</h1>
+        <p class="subtitle">快速测试 Rikas 试用申请 Webhook 集成</p>
+
+        <div class="info-box">
+            <strong>📍 当前 Webhook URL:</strong>
+            <div id="webhookUrl" style="margin-top: 8px; word-break: break-all;">http://localhost:5678/webhook/trial-application</div>
+        </div>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label for="firstName">姓 *</label>
+                <input type="text" id="firstName" name="firstName" value="测试" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">名 *</label>
+                <input type="text" id="lastName" name="lastName" value="用户" required>
+            </div>
+
+            <div class="form-group">
+                <label for="workEmail">工作邮箱 *</label>
+                <input type="email" id="workEmail" name="workEmail" value="test@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">公司名称 *</label>
+                <input type="text" id="company" name="company" value="测试科技有限公司" required>
+            </div>
+
+            <div class="form-group">
+                <label for="jobTitle">职位</label>
+                <input type="text" id="jobTitle" name="jobTitle" value="产品经理">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">电话</label>
+                <input type="tel" id="phone" name="phone" value="13800138000">
+            </div>
+
+            <div class="form-group">
+                <label for="teamSize">团队规模 *</label>
+                <select id="teamSize" name="teamSize" required>
+                    <option value="1-10">1-10人</option>
+                    <option value="11-50" selected>11-50人</option>
+                    <option value="51-200">51-200人</option>
+                    <option value="201-500">201-500人</option>
+                    <option value="500+">500人以上</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">
+                🚀 发送测试请求
+            </button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook-test/trial-application';
+        
+        document.getElementById('webhookUrl').textContent = N8N_WEBHOOK_URL;
+
+        const form = document.getElementById('testForm');
+        const resultDiv = document.getElementById('result');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 收集表单数据
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                workEmail: document.getElementById('workEmail').value,
+                company: document.getElementById('company').value,
+                jobTitle: document.getElementById('jobTitle').value || '未填写',
+                phone: document.getElementById('phone').value || '未填写',
+                teamSize: document.getElementById('teamSize').value,
+                agree: true,
+                subscribe: true,
+                timestamp: new Date().toISOString(),
+                source: 'test-tool',
+                page: 'webhook-test'
+            };
+
+            // 显示加载状态
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '正在发送<span class="loading"></span>';
+            resultDiv.style.display = 'none';
+
+            try {
+                const startTime = Date.now();
+                
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+
+                // 显示成功结果
+                resultDiv.className = 'result success';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3>✅ 请求成功！</h3>
+                    <p><strong>响应时间:</strong> ${duration}ms</p>
+                    <p><strong>HTTP 状态:</strong> ${response.status} ${response.statusText}</p>
+                    <p><strong>响应数据:</strong></p>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                    <p style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #c3e6cb;">
+                        <strong>📱 请检查飞书群组</strong><br>
+                        现在应该已经收到通知卡片了！
+                    </p>
+                `;
+
+                console.log('✅ 测试成功:', result);
+
+            } catch (error) {
+                // 显示错误结果
+                resultDiv.className = 'result error';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3>❌ 请求失败</h3>
+                    <p><strong>错误信息:</strong></p>
+                    <pre>${error.message}</pre>
+                    <p style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f5c6cb;">
+                        <strong>排查建议:</strong><br>
+                        1. 检查 N8N 服务是否运行 (docker ps)<br>
+                        2. 确认工作流是否已激活<br>
+                        3. 查看 N8N 执行历史中的错误<br>
+                        4. 检查网络连接是否正常
+                    </p>
+                `;
+
+                console.error('❌ 测试失败:', error);
+            } finally {
+                // 恢复按钮状态
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🚀 发送测试请求';
+            }
+        });
+    </script>
+</body>
+</html>
